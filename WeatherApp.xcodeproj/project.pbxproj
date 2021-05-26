@@ -17,6 +17,7 @@
 		C75E02C6265CD01300DA04E5 /* WeatherApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75E02C5265CD01300DA04E5 /* WeatherApiManager.swift */; };
 		C75E02C8265CD1B300DA04E5 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75E02C7265CD1B300DA04E5 /* WeatherData.swift */; };
 		C75E02CE265E1F5E00DA04E5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75E02CD265E1F5E00DA04E5 /* Constants.swift */; };
+		C75E02D1265E417700DA04E5 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = C75E02D0265E417700DA04E5 /* Readme.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		C75E02C7265CD1B300DA04E5 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		C75E02CD265E1F5E00DA04E5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C75E02CF265E23F800DA04E5 /* App.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App.xcconfig; sourceTree = "<group>"; };
+		C75E02D0265E417700DA04E5 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +51,7 @@
 		C75E02A0265CC97800DA04E5 = {
 			isa = PBXGroup;
 			children = (
+				C75E02D0265E417700DA04E5 /* Readme.md */,
 				C75E02AB265CC97800DA04E5 /* WeatherApp */,
 				C75E02AA265CC97800DA04E5 /* Products */,
 			);
@@ -180,6 +183,7 @@
 			files = (
 				C75E02B9265CC97F00DA04E5 /* LaunchScreen.storyboard in Resources */,
 				C75E02B6265CC97F00DA04E5 /* Assets.xcassets in Resources */,
+				C75E02D1265E417700DA04E5 /* Readme.md in Resources */,
 				C75E02B4265CC97800DA04E5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
