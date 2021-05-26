@@ -1,7 +1,7 @@
 // Created by Prachi Bile on 25th May 2021, all rights reserved by prachibile.com
 
-Weather App:
-
+            Weather App:
+    Description:
 1. This app is created to fetch weather by city, or by zip code, or by current location of device and display on the screen.
 2. This app is designed for iOS learners/beginners.
 3. This app will cover below iOS topics -
