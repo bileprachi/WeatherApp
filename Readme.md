@@ -1,4 +1,4 @@
-// Created by Prachi Bile, all reserved by prachibile.com
+// Created by Prachi Bile, all rights reserved by prachibile.com
 
 Weather App:
 
