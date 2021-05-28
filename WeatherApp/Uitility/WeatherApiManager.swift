@@ -68,6 +68,7 @@ class WeatherApiManager {
                     
                 } catch {
                     print("Error while JSON decoding...")
+                    completionHandler(nil, "Error while JSON Data parsing")
                     return
                 }
             }
