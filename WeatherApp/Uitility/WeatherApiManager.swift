@@ -9,31 +9,16 @@ import Foundation
 import CoreLocation
 
 class WeatherApiManager {
-    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?units=\(Constants.CELSIUS)&appid=\(Constants.API_KEY)"
     
-    func getWeather(location: String, completion: @escaping (WeatherData?, Error?) -> Void) {
-        
-        let weatherURLString = "\(weatherURL)&q=\(location)"
-        
-        print("weather URL in WeatherApiManager : \(weatherURLString)")
+    func getWeather(weatherUrlStr: String, completion: @escaping (WeatherData?, String?) -> Void) {
+        print("weather URL in WeatherApiManager : \(weatherUrlStr)")
 
-        performRequest(with: weatherURLString, completionHandler: { weather, error in
-            completion(weather, nil)
+        performRequest(with: weatherUrlStr, completionHandler: { weather, error in
+            completion(weather, error)
         })
     }
     
-    func getWeather(lat: CLLocationDegrees, long: CLLocationDegrees, completion: @escaping (WeatherData?, Error?) -> Void) {
-        
-        let weatherURLString = "\(weatherURL)&lat=\(lat)&lon=\(long)"
-        
-        print("weather URL in WeatherApiManager : \(weatherURLString)")
-
-        performRequest(with: weatherURLString, completionHandler: { weather, error in
-            completion(weather, nil)
-        })
-    }
-    
-    func performRequest(with weatherUrlStr: String, completionHandler: @escaping (WeatherData?, Error?) -> Void) {
+    func performRequest(with weatherUrlStr: String, completionHandler: @escaping (WeatherData?, String) -> Void) {
         
         var decodedData: WeatherData!
         
@@ -45,21 +30,25 @@ class WeatherApiManager {
                 
                 guard responseError == nil else {
                     print("Error in performRequest...\(responseError!.localizedDescription)")
+                    completionHandler(nil, "Error encountered")
                     return
                 }
                 
                 guard let data = responseData else {
                     print("No data received from performRequest...")
+                    completionHandler(nil, "No data received from api")
                     return
                 }
                 
                 guard let response = responseFromUrl as? HTTPURLResponse else {
                     print("No response received from performRequest...")
+                    completionHandler(nil, "no response received from api")
                     return
                 }
                 
                 guard response.statusCode == 200 else {
                     print("Failed while calling API...status code - \(response.statusCode)")
+                    completionHandler(nil, "Status code is other than 200")
                     return
                 }
                 
@@ -75,7 +64,7 @@ class WeatherApiManager {
                     print("Weather city name : \(decodedData.name)")
                     print(type(of: decodedData))
                     
-                    completionHandler(decodedData, nil)
+                    completionHandler(decodedData, "")
                     
                 } catch {
                     print("Error while JSON decoding...")

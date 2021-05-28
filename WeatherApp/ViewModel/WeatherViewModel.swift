@@ -10,27 +10,42 @@ import CoreLocation
 
 protocol WeatherViewModelDelegate: AnyObject {
     func didUpdadeWeather(weatherData: WeatherData)
-    func didFailWithError(error: Error)
+    func didFailWithError(error: String)
 }
 
 class WeatherViewModel {
     
-    let weatherApiManagerObj = WeatherApiManager()
     weak var delegate: WeatherViewModelDelegate?
+    let weatherApiManagerObj = WeatherApiManager()
+    let weatherURL = "\(WeatherURL.MAIN_URL)\(WeatherURL.CELSIUS)&\(WeatherURL.API_KEY)"
     
     func fetchWeather(location: String) {
         print("City in View Model: \(location)")
         
-        weatherApiManagerObj.getWeather(location: location, completion: { weatherData, error in
-            self.delegate?.didUpdadeWeather(weatherData: weatherData!)
-        })
+        let path = "\(weatherURL)&q=\(location)"
+        print("path: \(path)")
+        
+        weatherApiManagerObj.getWeather(weatherUrlStr: path) { weatherData, error in
+            if weatherData != nil {
+                self.delegate?.didUpdadeWeather(weatherData: weatherData!)
+            } else {
+                self.delegate?.didFailWithError(error: error!)
+            }
+        }
     }
     
     func fetchWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         print("latitude: \(latitude), longitude: \(longitude)")
         
-        weatherApiManagerObj.getWeather(lat: latitude, long: longitude, completion: { weatherData, error in
-            self.delegate?.didUpdadeWeather(weatherData: weatherData!)
+        let path = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
+        print("path: \(path)")
+        
+        weatherApiManagerObj.getWeather(weatherUrlStr: path, completion: { weatherData, error in
+            if weatherData != nil {
+                self.delegate?.didUpdadeWeather(weatherData: weatherData!)
+            } else {
+                self.delegate?.didFailWithError(error: error!)
+            }
         })
     }
 }

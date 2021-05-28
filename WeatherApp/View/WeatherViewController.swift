@@ -65,14 +65,14 @@ extension WeatherViewController: CLLocationManagerDelegate {
 //MARK: - WeatherViewModelDelegate
 
 extension WeatherViewController: WeatherViewModelDelegate {
-    
+ 
     func didUpdadeWeather(weatherData: WeatherData) {
         DispatchQueue.main.async {
             self.cityNameLabel.text = weatherData.name
             self.tempLabel.text = String(weatherData.main.temp)+" `C"
             for weather in weatherData.weather {
                 self.weatherDescriptionLabel.text = weather.description
-                let weatherImageUrl = URL(string: "\(Constants.IMAGE_URL)\(weather.icon)@2x.png")
+                let weatherImageUrl = URL(string: "\(WeatherURL.IMAGE_URL)\(weather.icon)@2x.png")
                 self.fetchImage(weatherImageUrl: weatherImageUrl)
             }
             self.loadingIndicator.stopAnimating()
@@ -94,7 +94,24 @@ extension WeatherViewController: WeatherViewModelDelegate {
         }
     }
     
-    func didFailWithError(error: Error) {
-        print(error)
+    func didFailWithError(error: String) {
+        print("Error-Encountered - \(error)")
+        
+        DispatchQueue.main.async {
+            
+            self.loadingIndicator.stopAnimating()
+            self.loadingIndicator.hidesWhenStopped = true
+            self.weatherSearchBar.text = ""
+            
+            let alert = UIAlertController(title: "MESSAGE", message: "Enter proper city name or zip code", preferredStyle: UIAlertController.Style.alert)
+            let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+            alert.addAction(action)
+            alert.view.tintColor = .purple
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
+
+
+//why we use extensions?
+//what all access specifiers we can extend?
