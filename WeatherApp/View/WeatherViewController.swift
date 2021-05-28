@@ -111,7 +111,3 @@ extension WeatherViewController: WeatherViewModelDelegate {
         }
     }
 }
-
-
-//why we use extensions?
-//what all access specifiers we can extend?
