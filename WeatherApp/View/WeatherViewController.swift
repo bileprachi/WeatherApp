@@ -17,8 +17,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
-    var weatherViewModelObj = WeatherViewModel()
-    var locationManager = CLLocationManager()
+    private var weatherViewModelObj = WeatherViewModel()
+    private var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class WeatherViewController: UIViewController {
         weatherViewModelObj.delegate = self
     }
     
-    func locationSettings() {
+    private func locationSettings() {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         locationManager.requestLocation()
