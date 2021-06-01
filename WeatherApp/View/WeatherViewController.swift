@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 
 class WeatherViewController: UIViewController {
-        
+    
     @IBOutlet weak var weatherSearchBar: UISearchBar!
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
@@ -45,7 +45,7 @@ extension WeatherViewController: UISearchBarDelegate {
     }
 }
 
-//MARK: - sCLLocationManagerDelegate
+//MARK: - CLLocationManagerDelegate
 
 extension WeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -65,32 +65,26 @@ extension WeatherViewController: CLLocationManagerDelegate {
 //MARK: - WeatherViewModelDelegate
 
 extension WeatherViewController: WeatherViewModelDelegate {
- 
+    
     func didUpdadeWeather(weatherData: WeatherData) {
+        
         DispatchQueue.main.async {
+            
             self.cityNameLabel.text = weatherData.name
             self.tempLabel.text = String(weatherData.main.temp)+" `C"
+            
             for weather in weatherData.weather {
                 self.weatherDescriptionLabel.text = weather.description
+                
                 let weatherImageUrl = URL(string: "\(WeatherURL.IMAGE_URL)\(weather.icon)@2x.png")
-                self.fetchImage(weatherImageUrl: weatherImageUrl)
-            }
-            self.loadingIndicator.stopAnimating()
-            self.loadingIndicator.hidesWhenStopped = true
-        }
-    }
-    
-    func fetchImage(weatherImageUrl: URL!) {
-        if weatherImageUrl != nil {
-            DispatchQueue.global().async {
                 let weatherImageData = try? Data(contentsOf: weatherImageUrl!)
                 if let safeWeatherImageData = weatherImageData {
-                    let weatherImage = UIImage(data: safeWeatherImageData)
-                    DispatchQueue.main.async {
-                        self.weatherImageView.image = weatherImage
-                    }
+                    self.weatherImageView.image = UIImage(data: safeWeatherImageData)
                 }
             }
+            
+            self.loadingIndicator.stopAnimating()
+            self.loadingIndicator.hidesWhenStopped = true
         }
     }
     
